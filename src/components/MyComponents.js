@@ -1,51 +1,25 @@
 //class components
 // function components
 import React from "react";
+import DisplayInfo from "./DisplayInfo";
+import UserInfo from "./UserInfo";
 
 class MyComponent extends React.Component {
   state = {
-    name: "Cong Hoangg",
-    address: "Dak Lak",
-    age: 23,
-  };
+    listUsers: [
+      { id: 1, name: "Hoang Cong", age: "24" },
+      { id: 2, name: "John", age: "20" },
+      { id: 3, name: "Van Hai", age: "28" },
+  ]};
 
-  handleClick(event) {
-    console.log("Clicking...");
-    console.log("My name is: ", this.state.name);
-
-    this.setState({
-      name: "Hoang Cee",
-      address: "Dak Lak",
-      age: Math.floor(Math.random() * 100) + 1,
-    });
-  }
-
-  handleOnMoverOver(event) {
-    console.log("You hover me");
-    // console.log(event);
-  }
-  handleOnchangeInput = (event) => {
-    this.setState({ name: event.target.value });
-  };
-  handleOnSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state);
-  };
   //JSX
   render() {
+    //DRY: don't repeat yourself...
     return (
       <div>
-        My name is: {this.state.name} and address: {this.state.address} age:{" "}
-        {this.state.age}
-        <form onSubmit={(event) => this.handleOnSubmit(event)}>
-          <input
-            type="text"
-            onChange={(event) => {
-              this.handleOnchangeInput(event);
-            }}
-          />
-          <button> Submit </button>
-        </form>
+        <UserInfo />
+        <br /> <br />
+        <DisplayInfo listUsers={this.state.listUsers  } />
       </div>
     );
   }
