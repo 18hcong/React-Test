@@ -7,10 +7,11 @@ import UserInfo from "./UserInfo";
 class MyComponent extends React.Component {
   state = {
     listUsers: [
-      { id: 1, name: "Hoang Cong", age: "24" },
-      { id: 2, name: "John", age: "20" },
-      { id: 3, name: "Van Hai", age: "28" },
-  ]};
+      { id: 1, name: "Hoang Cong", age: "20" },
+      { id: 2, name: "John", age: "24" },
+      { id: 3, name: "Van Hai", age: "38" },
+    ],
+  };
 
   //JSX
   render() {
@@ -18,8 +19,8 @@ class MyComponent extends React.Component {
     return (
       <div>
         <UserInfo />
-        <br /> <br />
-        <DisplayInfo listUsers={this.state.listUsers  } />
+        <br />
+        <DisplayInfo listUsers={this.state.listUsers} />
       </div>
     );
   }
