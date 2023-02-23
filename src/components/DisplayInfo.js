@@ -6,16 +6,18 @@ class DisplayInfo extends React.Component {
   };
 
   handleShowHide = () => {
-    this.setState({ isShowListUser: !this.state.isShowListUser });
+    this.setState({
+      isShowListUser: !this.state.isShowListUser,
+    });
   };
   render() {
     //destructuring array/object
     const { listUsers } = this.props; //object
     // console.log(listUsers);
-    //props =>  VIẾT TẮT properties
+    //props =>  VIET TẮT properties
     return (
       <div>
-        {listUsers.map((item, index) => {
+        {listUsers.map((User, index) => {
           return (
             <div>
               <div>
@@ -24,15 +26,16 @@ class DisplayInfo extends React.Component {
                     this.handleShowHide();
                   }}
                 >
+                  Hide list item:
                   {this.state.isShowListUser === true
-                    ? "Hide list User: "
-                    : "Show list User: "}
+                    ? "Hide list User"
+                    : "Show list User"}
                 </span>
               </div>
               {this.state.isShowListUser && (
-                <div key={item.id} className={+item.age > 23 ? "red" : "blue"}>
-                  <div>My Name's: {item.name} </div>
-                  <div>My Age's: {item.age}</div>
+                <div key={User.id} className={+User.age > 20 ? "blue" : "red"}>
+                  <div>My Name's: {User.name} </div>
+                  <div>My Age's: {User.age}</div>
                   <hr />
                 </div>
               )}
