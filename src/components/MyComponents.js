@@ -24,11 +24,11 @@ class MyComponent extends React.Component {
   render() {
     //DRY: don't repeat yourself...
     return (
-      <div>
+      <>
         <AddUserInfor handleAddNewUser={this.handleAddNewUser} />
         <br /> <br />
         <DisplayInfo listUsers={this.state.listUsers} />
-      </div>
+      </>
     );
   }
 }

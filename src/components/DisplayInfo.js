@@ -22,7 +22,7 @@ class DisplayInfo extends React.Component {
         {listUsers.map((User, index) => {
           return (
             <div className="display-info-container">
-              <img src={logo } />
+              <img src={logo} />
               <div>
                 <span
                   onClick={() => {
@@ -36,11 +36,20 @@ class DisplayInfo extends React.Component {
                 </span>
               </div>
               {this.state.isShowListUser && (
-                <div key={User.id} className={+User.age > 20 ? "blue" : "red"}>
-                  <div>My Name's: {User.name} </div>
-                  <div>My Age's: {User.age}</div>
-                  <hr />
-                </div>
+                <>
+                  {listUsers.map((user, index) => {
+                    return (
+                      <div
+                        key={User.id}
+                        className={+User.age > 20 ? "blue" : "red"}
+                      >
+                        <div>My Name's: {User.name} </div>
+                        <div>My Age's: {User.age}</div>
+                        <hr />
+                      </div>
+                    );
+                  })}
+                </>
               )}
             </div>
           );
