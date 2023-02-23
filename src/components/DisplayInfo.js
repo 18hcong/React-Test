@@ -25,26 +25,19 @@ class DisplayInfo extends React.Component {
               <img src={logo} />
               <div>
                 <span
-                  onClick={() => {
-                    this.handleShowHide();
-                  }}
-                >
-                  Hide list item:
-                  {this.state.isShowListUser === true
-                    ? "Hide list User"
-                    : "Show list User"}
+                  onClick={() => {this.handleShowHide()}}>Hide list item:{this.state.isShowListUser === true ? "Hide list User" : "Show list User"}
                 </span>
               </div>
               {this.state.isShowListUser && (
                 <>
                   {listUsers.map((user, index) => {
                     return (
-                      <div
-                        key={User.id}
-                        className={+User.age > 20 ? "blue" : "red"}
-                      >
+                      <div key={User.id} className={+User.age > 20 ? "blue" : "red"}>
                         <div>My Name's: {User.name} </div>
                         <div>My Age's: {User.age}</div>
+                      <div>
+                        <button onClick={() => this.props.handleDeleteUser(user.id)}>Delete</button>
+                      </div>
                         <hr />
                       </div>
                     );
