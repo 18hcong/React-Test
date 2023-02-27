@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DisplayInfo.scss";
 import logo from "./../logo.svg";
 
@@ -45,39 +45,51 @@ import logo from "./../logo.svg";
 //   }
 // }
 
-  const DisplayInfo = (props) => {
-    const {listUsers}= props;  //Object
-    const[isShowHideListUsers, setShowHideListUsers] =useState(true);
-    //destructuring assignment
+const DisplayInfo = (props) => {
+  const { listUsers } = props; //Object
+  const [isShowHideListUsers, setShowHideListUsers] = useState(true);
+  //destructuring assignment
 
-    const handleShowHideListUsers =() => {
-      setShowHideListUsers(!isShowHideListUsers);
+  const handleShowHideListUsers = () => {
+    setShowHideListUsers(!isShowHideListUsers);
+  };
+
+  console.log(`>>> My checkkkk: `);
+
+  useEffect(() => {
+    if (listUsers.length === 0) {
+      alert("Please, u deleted all users");
     }
-          return (
-                  <div className="display-info-container">
-                    <div>
-                      <span onClick={() => handleShowHideListUsers() }>
-                      {isShowHideListUsers === true ? "Hide List User:" : "Show List User"}
-                      </span>
-                    </div>
-                    {isShowHideListUsers && (
-                      <>
-                        {listUsers.map((user, index) => {
-                          return (
-                            <div key={user.id} className={+user.age > 20 ? "blue" : "red"} >
-                              <div>My Name's: {user.name} </div>
-                              <div>My Age's: {user.age}</div>
-                              <div>
-                                <button onClick={() => props.handleDeleteUser(user.id)} > Delete </button>
-                              </div>
-                              <hr />
-                            </div>
-                          );
-                        })}
-                      </>
-                    )}
-                  </div>
-                );
-              }
+    console.log(`>>> Call me useEffect`);
+  }, [listUsers]);
+  return (
+    <div className="display-info-container">
+      <div>
+        <span onClick={() => handleShowHideListUsers()}>
+          {isShowHideListUsers === true ? "Hide List User:" : "Show List User"}
+        </span>
+      </div>
+      {isShowHideListUsers && (
+        <>
+          {listUsers.map((user, index) => {
+            return (
+              <div key={user.id} className={+user.age > 20 ? "blue" : "red"}>
+                <div>My Name's: {user.name} </div>
+                <div>My Age's: {user.age}</div>
+                <div>
+                  <button onClick={() => props.handleDeleteUser(user.id)}>
+                    {" "}
+                    Delete{" "}
+                  </button>
+                </div>
+                <hr />
+              </div>
+            );
+          })}
+        </>
+      )}
+    </div>
+  );
+};
 
 export default DisplayInfo;
