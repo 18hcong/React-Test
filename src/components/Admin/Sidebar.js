@@ -17,10 +17,10 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import sidebarBg from "../../assets/bg2.jpg";
-
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
 import { FaMailchimp } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import "./Sidebar.scss";
 
@@ -60,6 +60,7 @@ const SideBar = (props) => {
               //   suffix={<span className="badge red">new</span>}
             >
               Dashboard
+              <Link to="/admins" />
             </MenuItem>
             {/* <MenuItem icon={<FaGem />}> components</MenuItem> */}
           </Menu>
@@ -70,7 +71,10 @@ const SideBar = (props) => {
               icon={<FaGem />}
               title="Features"
             >
-              <MenuItem> User Management</MenuItem>
+              <MenuItem>
+                User Management
+                <Link to="/admins/manager-users " />
+              </MenuItem>
               <MenuItem> Quiz management</MenuItem>
               <MenuItem> Question management</MenuItem>
             </SubMenu>
@@ -92,7 +96,13 @@ const SideBar = (props) => {
             >
               <FaMailchimp />
 
-              <span style={{whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"}}>
+              <span
+                style={{
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                }}
+              >
                 Cong Hoang dev
               </span>
             </a>
