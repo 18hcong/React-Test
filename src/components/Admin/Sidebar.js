@@ -18,6 +18,12 @@ import {
 } from "react-icons/fa";
 import sidebarBg from "../../assets/bg2.jpg";
 
+import { DiReact } from "react-icons/di";
+import { MdDashboard } from "react-icons/md";
+import { FaMailchimp } from "react-icons/fa";
+
+import "./Sidebar.scss";
+
 const SideBar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
   return (
@@ -42,28 +48,31 @@ const SideBar = (props) => {
               whiteSpace: "nowrap",
             }}
           >
-            Cong Hoang Dev
+            <DiReact size={"3em"} color={"00bfff"} />
+            <span>Cong Hoang Dev</span>
           </div>
         </SidebarHeader>
 
         <SidebarContent>
           <Menu iconShape="circle">
             <MenuItem
-              icon={<FaTachometerAlt />}
-              suffix={<span className="badge red">new</span>}
+              icon={<MdDashboard />}
+              //   suffix={<span className="badge red">new</span>}
             >
-              dashboard
+              Dashboard
             </MenuItem>
-            <MenuItem icon={<FaGem />}> components</MenuItem>
+            {/* <MenuItem icon={<FaGem />}> components</MenuItem> */}
           </Menu>
           <Menu iconShape="circle">
             <SubMenu
-              suffix={<span className="badge yellow">3</span>}
-              icon={<FaRegLaughWink />}
+              //   suffix={<span className="badge yellow">3</span>}
+              //   icon={<FaRegLaughWink />}
+              icon={<FaGem />}
+              title="Features"
             >
-              <MenuItem> 1</MenuItem>
-              <MenuItem> 2</MenuItem>
-              <MenuItem> 3</MenuItem>
+              <MenuItem> User Management</MenuItem>
+              <MenuItem> Quiz management</MenuItem>
+              <MenuItem> Question management</MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
@@ -76,20 +85,15 @@ const SideBar = (props) => {
             }}
           >
             <a
-              href="https://github.com/azouaoui-med/react-pro-sidebar"
+              href="https://github.com/18hcong"
               target="_blank"
               className="sidebar-btn"
               rel="noopener noreferrer"
             >
-              <FaGithub />
-              <span
-                style={{
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                }}
-              >
-                viewSource
+              <FaMailchimp />
+
+              <span style={{whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"}}>
+                Cong Hoang dev
               </span>
             </a>
           </div>
