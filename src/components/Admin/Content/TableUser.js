@@ -1,5 +1,5 @@
    const TableUser = (props) => {
-   const {listUser} = props;
+   const { listUser } = props;
    //const listUser = props.listUser;
 
    //componentsDidMount
@@ -28,7 +28,12 @@
                      <td>{item.role}</td>
                      <td>
                      <button className="btn btn-secondary">View</button>
-                     <button className="btn btn-warning mx-2">Update</button>
+                     <button
+                        className="btn btn-warning mx-2"
+                        onClick={() => props.handleClickBtnEdit(item)}
+                     >
+                        Edit
+                     </button>
                      <button className="btn btn-danger">Delete</button>
                      </td>
                   </tr>

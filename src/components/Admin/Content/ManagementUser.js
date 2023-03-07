@@ -4,10 +4,14 @@
    import TableUser from "./TableUser";
    import { useEffect, useState } from "react";
    import { getAllUsers } from "../../../services/apiServices";
+   import ModalEditUser from "./ModalEditUser";
 
    const ManagementUser = (props) => {
-   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
-   const [listUser, setListUser] = useState([]);
+      const [showModalCreateUser, setShowModalCreateUser] = useState(false);
+      const [showModalEditUser, setShowModalEditUser] = useState(false);
+      const [listUser, setListUser] = useState([]);
+      const [dataEdit, setDataEdit] = useState({});
+
    useEffect(() => {
       fetchListUsers();
    }, []);
@@ -18,6 +22,11 @@
       if (res.EC === 0) {
          setListUser(res.DT);
       }
+   };
+
+   const handleClickBtnEdit = (user) => {
+      setShowModalEditUser(true);
+      setDataEdit(user);
    };
 
    return (
@@ -33,13 +42,24 @@
                <FcPlus /> Add new users
             </button>
          </div>
+
          <div className="table-users-container">
-            <TableUser listUser={listUser} />
+            <TableUser
+               handleClickBtnEdit={handleClickBtnEdit}
+               listUser={listUser}
+            />
          </div>
+
          <ModalCreateUser
             show={showModalCreateUser}
             setShow={setShowModalCreateUser}
             fetchListUsers={fetchListUsers}
+         />
+
+         <ModalEditUser 
+         show={showModalEditUser} 
+         setShow={setShowModalEditUser}
+         dataEdit={dataEdit}
          />
          </div>
       </div>
