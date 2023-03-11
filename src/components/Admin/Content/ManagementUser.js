@@ -1,68 +1,71 @@
-   import ModalCreateUser from "./ModalCreateUser";
-   import "./ManagementUser.scss";
-   import { FcPlus } from "react-icons/fc";
-   import TableUser from "./TableUser";
-   import { useEffect, useState } from "react";
-   import { getAllUsers } from "../../../services/apiServices";
-   import ModalEditUser from "./ModalEditUser";
+  import ModalCreateUser from './ModalCreateUser';
+  import './ManagementUser.scss';
+  import { FcPlus } from 'react-icons/fc';
+  import TableUser from './TableUser';
+  import { useEffect, useState } from 'react';
+  import { getAllUsers } from '../../../services/apiServices';
+  import ModalUpdateUser from './ModalUpdateUser';
 
-   const ManagementUser = (props) => {
-      const [showModalCreateUser, setShowModalCreateUser] = useState(false);
-      const [showModalEditUser, setShowModalEditUser] = useState(false);
-      const [listUser, setListUser] = useState([]);
-      const [dataEdit, setDataEdit] = useState({});
 
-   useEffect(() => {
+  const ManagementUser = (props) => {
+    const [showModalCreateUser, setShowModalCreateUser] = useState(false);
+    const [showModalUpdateUser, setSHowModalUpdateUser] = useState(false);
+
+    const [listUser, setListUser] = useState([]);
+    const [dataUpdate, setDataUpdate] = useState({});
+
+    useEffect(() => {
       fetchListUsers();
-   }, []);
+    }, []);
 
-   const fetchListUsers = async () => {
+    const fetchListUsers = async () => {
       let res = await getAllUsers();
       console.log(res);
       if (res.EC === 0) {
-         setListUser(res.DT);
+        setListUser(res.DT);
       }
-   };
+    };
 
-   const handleClickBtnEdit = (user) => {
-      setShowModalEditUser(true);
-      setDataEdit(user);
-   };
+    const handleClickBtnUpdate = (user) => {
+      setSHowModalUpdateUser(true);
+      setDataUpdate(user);
+    };
 
-   return (
+    return (
       <div className="manager-users-container">
-         <div className="title">Manager Users</div>
-         <div className="users-content">
-         <div className="btn-add-new">
+        <div className="title">Manager Users</div>
+        <div className="users-content">
+          <div className="btn-add-new">
             <button
-               className="btn btn-dark"
-               onClick={() => setShowModalCreateUser(true)}
+              className="btn btn-dark"
+              onClick={() => setShowModalCreateUser(true)}
             >
-               {" "}
-               <FcPlus /> Add new users
+              {' '}
+              <FcPlus /> Add new users
             </button>
-         </div>
+          </div>
 
-         <div className="table-users-container">
+          <div className="table-users-container">
             <TableUser
-               handleClickBtnEdit={handleClickBtnEdit}
-               listUser={listUser}
+              handleClickBtnUpdate={handleClickBtnUpdate}
+              listUser={listUser}
             />
-         </div>
+          </div>
 
-         <ModalCreateUser
+          <ModalCreateUser
             show={showModalCreateUser}
             setShow={setShowModalCreateUser}
             fetchListUsers={fetchListUsers}
-         />
+          />
 
-         <ModalEditUser 
-         show={showModalEditUser} 
-         setShow={setShowModalEditUser}
-         dataEdit={dataEdit}
-         />
-         </div>
+          <ModalUpdateUser
+          show={showModalUpdateUser}
+          setShow={setSHowModalUpdateUser}
+          dataUpdate={dataUpdate}
+          />
+        
+        </div>
       </div>
-   );
-   };
-   export default ManagementUser;
+    );
+  };
+  export default ManagementUser;

@@ -30,7 +30,7 @@
                      <button className="btn btn-secondary">View</button>
                      <button
                         className="btn btn-warning mx-2"
-                        onClick={() => props.handleClickBtnEdit(item)}
+                        onClick={() => props.handleClickBtnUpdate(item)}
                      >
                         Edit
                      </button>
@@ -41,7 +41,7 @@
                })}
             {listUser && listUser.length === 0 && (
                <tr>
-               <td colSpan={"4"}> Not found USER</td>
+               <td colSpan={'4'}> Not found USER</td>
                </tr>
             )}
          </tbody>
