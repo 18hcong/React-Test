@@ -91,6 +91,7 @@
             fetchListUsers={fetchListUsers}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            fetchListUsersWithPaginate={fetchListUsersWithPaginate}
           />
 
           <ModalUpdateUser
@@ -102,6 +103,7 @@
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             resetUpdateData={resetUpdateData}
+            fetchListUsersWithPaginate={fetchListUsersWithPaginate}
           />
           <ModalDeleteUser
             show={showModalDeleteUser}
@@ -110,6 +112,7 @@
             fetchListUsers={fetchListUsers}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            fetchListUsersWithPaginate={fetchListUsersWithPaginate}
           />
         </div>
       </div>

@@ -1,20 +1,20 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { NavLink, useNavigate } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/login");
+    navigate('/login');
   };
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         {/* <Navbar.Brand href="#home">CongHoang Dev</Navbar.Brand> */}
-        <NavLink to="/" className={"navbar-brand"}>
+        <NavLink to="/" className={'navbar-brand'}>
           CongHoang Dev
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,19 +30,21 @@ const Header = () => {
               User
             </NavLink>
             {/* 
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Admin</Nav.Link>
-            <Nav.Link href="#link">User</Nav.Link> */}
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#link">Admin</Nav.Link>
+                <Nav.Link href="#link">User</Nav.Link> */}
           </Nav>
           <Nav>
-            <button className="btn-login" onClick={() => handleLogin()}>Login</button>
+            <button className="btn-login" onClick={() => handleLogin()}>
+              Login
+            </button>
             <button className="btn-signup">Sign Up</button>
 
             {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
-              <NavDropdown.Item>Log In</NavDropdown.Item>
-              <NavDropdown.Item>Log Out</NavDropdown.Item>
-              <NavDropdown.Item>Profile</NavDropdown.Item>
-            </NavDropdown> */}
+                  <NavDropdown.Item>Log In</NavDropdown.Item>
+                  <NavDropdown.Item>Log Out</NavDropdown.Item>
+                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
