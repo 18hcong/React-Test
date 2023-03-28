@@ -22,6 +22,7 @@ import { MdDashboard } from "react-icons/md";
 import { FaMailchimp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+
 import "./Sidebar.scss";
 
 const SideBar = (props) => {
@@ -49,7 +50,9 @@ const SideBar = (props) => {
             }}
           >
             <DiReact size={"3em"} color={"00bfff"} />
-            <span>Cong Hoang Dev</span>
+            <span>
+              <a href="/">Cong Hoang Dev</a>
+            </span>
           </div>
         </SidebarHeader>
 
