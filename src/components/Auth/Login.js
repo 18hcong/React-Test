@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Login.scss';
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../services/apiServices';
@@ -33,7 +33,7 @@ const Login = (props) => {
       toast.error(`Invalid password`);
       return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
     //submit apis
     let data = await postLogin(email, password);
     if (data && data.EC === 0) {
@@ -47,6 +47,22 @@ const Login = (props) => {
       setIsLoading(false);
     }
   };
+
+  //press Enter to Submit button Login
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        // 👇️ call submit function here
+        handleLogin();
+      }
+    };
+    document.addEventListener('keydown', keyDownHandler);
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, [handleLogin]);
+
   return (
     <div className="login-container">
       <div className="header">
@@ -79,11 +95,12 @@ const Login = (props) => {
         <span className="forgot-password">Forgot password?</span>
         <div>
           <button
+            type="submit"
             className="btn btn-primary"
             onClick={() => handleLogin()}
             disabled={isLoading}
           >
-            {isLoading === true && <CgSpinnerTwoAlt className="loader-icon" /> }
+            {isLoading === true && <CgSpinnerTwoAlt className="loader-icon" />}
             <span>Login to CHdeveloper</span>
           </button>
           <div className="text-center">
