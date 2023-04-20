@@ -5,8 +5,12 @@ import _ from 'lodash';
 import './DetailQuiz.scss';
 import Question from './Question';
 import ModalResult from './ModalResult';
+import { SidebarFooter } from 'react-pro-sidebar';
+import { FaMailchimp } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const DetailQuiz = (props) => {
+  const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
   const quizId = params.id;
@@ -145,6 +149,20 @@ const DetailQuiz = (props) => {
           >
             Finish
           </button>
+        </div>
+        <div className="footer-back">
+          <SidebarFooter style={{ textAlign: 'center' }}>
+            <div
+              className="sidebar-btn-wrapper"
+              style={{
+                padding: '20px 24px',
+              }}
+            >
+              <span className="sidebar-btn" onClick={() => navigate('/users')}>
+                <FaMailchimp /> Go Back
+              </span>
+            </div>
+          </SidebarFooter>
         </div>
       </div>
       <div className="right-content">countdown</div>

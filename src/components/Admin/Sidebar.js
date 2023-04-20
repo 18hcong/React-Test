@@ -1,4 +1,4 @@
-import "react-pro-sidebar/dist/css/styles.css";
+import 'react-pro-sidebar/dist/css/styles.css';
 import {
   ProSidebar,
   Menu,
@@ -7,7 +7,7 @@ import {
   SidebarHeader,
   SidebarFooter,
   SidebarContent,
-} from "react-pro-sidebar";
+} from 'react-pro-sidebar';
 import {
   FaTachometerAlt,
   FaGem,
@@ -15,17 +15,17 @@ import {
   FaGithub,
   FaRegLaughWink,
   FaHeart,
-} from "react-icons/fa";
-import sidebarBg from "../../assets/bg2.jpg";
-import { DiReact } from "react-icons/di";
-import { MdDashboard } from "react-icons/md";
-import { FaMailchimp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+} from 'react-icons/fa';
+import sidebarBg from '../../assets/bg2.jpg';
+import { DiReact } from 'react-icons/di';
+import { MdDashboard } from 'react-icons/md';
+import { FaMailchimp } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 
-
-import "./Sidebar.scss";
+import './Sidebar.scss';
 
 const SideBar = (props) => {
+  const navigate = useNavigate();
   const { image, collapsed, toggled, handleToggleSidebar } = props;
   return (
     <>
@@ -39,19 +39,19 @@ const SideBar = (props) => {
         <SidebarHeader>
           <div
             style={{
-              padding: "24px",
-              textTransform: "uppercase",
-              fontWeight: "bold",
+              padding: '24px',
+              textTransform: 'uppercase',
+              fontWeight: 'bold',
               fontSize: 14,
-              letterSpacing: "1px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+              letterSpacing: '1px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}
           >
-            <DiReact size={"3em"} color={"00bfff"} />
-            <span>
-              <a href="/">Cong Hoang Dev</a>
+            <DiReact size={'3em'} color={'00bfff'} />
+            <span onClick={() => navigate('/')}>
+              Cong Hoang Dev
             </span>
           </div>
         </SidebarHeader>
@@ -78,17 +78,19 @@ const SideBar = (props) => {
                 User Management
                 <Link to="/admins/manager-users " />
               </MenuItem>
-              <MenuItem> Quiz management</MenuItem>
+              <MenuItem> Quiz management
+                <Link to="/admins/manager-quizzes " />
+              </MenuItem>
               <MenuItem> Question management</MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
 
-        <SidebarFooter style={{ textAlign: "center" }}>
+        <SidebarFooter style={{ textAlign: 'center' }}>
           <div
             className="sidebar-btn-wrapper"
             style={{
-              padding: "20px 24px",
+              padding: '20px 24px',
             }}
           >
             <a
@@ -101,9 +103,9 @@ const SideBar = (props) => {
 
               <span
                 style={{
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
                 }}
               >
                 Cong Hoang dev
