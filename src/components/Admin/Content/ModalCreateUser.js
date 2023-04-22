@@ -132,11 +132,8 @@ const ModalCreateUser = (props) => {
               />
             </div>
             <div className="col-md-12 img-preview">
-              {previewImage ? (
-                <img src={previewImage} />
-              ) : (
-                <span> PREVIEW PICTURE </span>
-              )}
+              {previewImage ? 
+                <img src={previewImage}/> : <span> PREVIEW PICTURE </span>}
             </div>
           </form>
         </Modal.Body>

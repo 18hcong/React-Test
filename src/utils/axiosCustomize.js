@@ -42,7 +42,6 @@ instance.interceptors.response.use(
     NProgress.done();
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    console.log('>>> Check Error:', error);
     return error && error.response && error.response.data
       ? error.response.data
       : Promise.reject(error);
