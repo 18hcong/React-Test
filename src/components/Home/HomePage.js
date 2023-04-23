@@ -12,17 +12,23 @@ const HomePage = (props) => {
         <source src={videoHomePage} type="video/mp4" />
       </video>
       <div className="homepage-content">
-        <div className="title-one">There's a better way to ask!</div>
+        <div className="title-one">
+          whoIsHoang
+          <hr />
+          There's a better way to ask!
+        </div>
         <div className="title-two">
           You don't want to make a boring form. And your audience won't answer
           one. Created a typeform insead-and make...
         </div>
         <div className="title-three">
-          {isAuthenticated === false ? 
-            <button onClick={() => navigate('/login')}>Get's started. It's free</button>
-           : 
+          {isAuthenticated === false ? (
+            <button onClick={() => navigate('/login')}>
+              Get's started. It's free
+            </button>
+          ) : (
             <button onClick={() => navigate('users')}>Doing Quiz Now</button>
-          }
+          )}
         </div>
       </div>
     </div>
