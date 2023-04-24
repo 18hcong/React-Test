@@ -40,7 +40,6 @@ const ManagementQuiz = (props) => {
       toast.error(res.EM);
     }
   };
-
   return (
     <div className="quiz-container">
       <Accordion>
@@ -102,7 +101,6 @@ const ManagementQuiz = (props) => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      
       <div className="list-details">
         <TableQuiz />
       </div>

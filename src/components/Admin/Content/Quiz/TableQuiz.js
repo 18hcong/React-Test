@@ -11,14 +11,14 @@ const TableQuiz = (props) => {
 
   const fetchQuiz = async () => {
     let res = await getAllQuizForAdmin();
-    if (res && res.EC === 0) {
+    if (res && res.EC === 0) { 
       setListQuiz(res.DT);
     }
   };
   return (
     <>
       <div> List Quiz: </div>
-      <table className="table table-hover table-bordered mt-1">
+      <table className="table table-hover table-bordered my-2">
         <thead>
           <tr>
             <th scope="col">ID</th>
