@@ -42,7 +42,7 @@ const SideBar = (props) => {
               padding: '24px',
               textTransform: 'uppercase',
               fontWeight: 'bold',
-              fontSize: 14,
+              fontSize: 15,
               letterSpacing: '1px',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -50,9 +50,7 @@ const SideBar = (props) => {
             }}
           >
             <DiReact size={'3em'} color={'00bfff'} />
-            <span onClick={() => navigate('/')}>
-              Cong Hoang Dev
-            </span>
+            <span onClick={() => navigate('/')}>Cong Hoang Dev</span>
           </div>
         </SidebarHeader>
 
@@ -78,10 +76,14 @@ const SideBar = (props) => {
                 User Management
                 <Link to="/admins/manager-users " />
               </MenuItem>
-              <MenuItem> Quiz management
+              <MenuItem>
+                Quiz management
                 <Link to="/admins/manager-quizzes " />
               </MenuItem>
-              <MenuItem> Question management</MenuItem>
+              <MenuItem> 
+              Question management
+              <Link to="/admins/manager-questions " />
+              </MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>

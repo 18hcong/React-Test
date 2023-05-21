@@ -44,8 +44,11 @@ const Header = () => {
           <Nav>
             {isAuthenticated === false ? (
               <>
-                <button className="btn-login" onClick={() => handleLogin()}>Login</button>
-                <button className="btn-signup" onClick={() => handleRegister()}>Sign Up
+                <button className="btn-login" onClick={() => handleLogin()}>
+                  Login
+                </button>
+                <button className="btn-signup" onClick={() => handleRegister()}>
+                  Sign Up
                 </button>
               </>
             ) : (
