@@ -6,6 +6,7 @@ import { FcQuestions, FcFullTrash } from 'react-icons/fc';
 import { FiUserX, FiUserPlus } from 'react-icons/fi';
 import { RiImageAddFill } from 'react-icons/ri';
 import { v4 as uuidv4 } from 'uuid';
+import Lightbox from 'react-awesome-lightbox';
 
 const Questions = () => {
   const options = [
@@ -132,6 +133,25 @@ const Questions = () => {
     console.log('question: ', questions);
   };
 
+  const handlePreviewImage = (questionId) => {
+    let questionsClone = _.cloneDeep(questions);
+    let index = questionsClone.findIndex((item) => item.id === questionId);
+    if (index > -1) {
+      setDataImagePreview({
+        url: URL.createObjectURL(questionsClone[index].imageFile),
+        title: questionsClone[index].imageName,
+      });
+      setIsPreViewImage(true);
+    }
+  };
+
+  const [isPreviewImage, setIsPreViewImage] = useState(false);
+
+  const [dataImagePreview, setDataImagePreview] = useState({
+    title: '',
+    url: '',
+  });
+
   return (
     <div className="question-container">
       <div className="question-title">Management Question</div>
@@ -182,10 +202,14 @@ const Questions = () => {
                         hidden
                       />
                       <span>
-                        {question.imageName
-                          ? question.imageName
-                          : ' NOT file is upload!!!'}
-                      </span>
+                        {question.imageName ? 
+                            <span style={{ cursor: 'pointer' }}
+                              onClick={() => handlePreviewImage(question.id)}>
+                              {question.imageName}
+                            </span>
+                          : 
+                            'NOT file is upload!!!'
+                        }</span>
                     </div>
 
                     <div className="btn-add">
@@ -276,6 +300,15 @@ const Questions = () => {
                 Save Questions
               </button>
             </div>
+          )}
+          {isPreviewImage === true && (
+            <Lightbox
+              image={dataImagePreview.url}
+              title={dataImagePreview.title}
+              onClose={() => setIsPreViewImage(false)}
+            >
+
+            </Lightbox>
           )}
         </div>
       </div>
