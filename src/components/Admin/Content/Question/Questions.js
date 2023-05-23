@@ -1,20 +1,25 @@
 import './Questions.scss';
 import Select from 'react-select';
-import _ from 'lodash';
+import _, { create } from 'lodash';
 import { useState } from 'react';
 import { FcQuestions, FcFullTrash } from 'react-icons/fc';
 import { FiUserX, FiUserPlus } from 'react-icons/fi';
 import { RiImageAddFill } from 'react-icons/ri';
 import { v4 as uuidv4 } from 'uuid';
 import Lightbox from 'react-awesome-lightbox';
+import { useEffect } from 'react';
+import {
+  getAllQuizForAdmin,
+  postCreateNewQuestionForQuiz,
+  postCreateNewAnswerForQuestion,
+} from '../../../../services/apiServices';
 
 const Questions = () => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
-  const [selectedQuiz, setSelectedQuiz] = useState({});
+  // const options = [
+  //   { value: 'chocolate', label: 'Chocolate' },
+  //   { value: 'strawberry', label: 'Strawberry' },
+  //   { value: 'vanilla', label: 'Vanilla' },
+  // ];
 
   const [questions, setQuestions] = useState([
     {
@@ -32,6 +37,12 @@ const Questions = () => {
     },
   ]);
   // console.log('check questions:', questions);
+  const [isPreviewImage, setIsPreViewImage] = useState(false);
+
+  const [dataImagePreview, setDataImagePreview] = useState({
+    title: '',
+    url: '',
+  });
 
   const handleAddRemoveQuestion = (type, id) => {
     if (type === 'ADD') {
@@ -109,7 +120,7 @@ const Questions = () => {
   const handleAnswerQuestion = (type, answerId, questionId, value) => {
     let questionsClone = _.cloneDeep(questions);
     let index = questionsClone.findIndex((item) => item.id === questionId);
-    console.log(type, answerId, questionId, value, index);
+    // console.log(type, answerId, questionId, value, index);
     if (index > -1) {
       questionsClone[index].answers = questionsClone[index].answers.map(
         (answer) => {
@@ -129,8 +140,34 @@ const Questions = () => {
     }
   };
 
-  const handleSubmitQuestionForQuiz = () => {
-    console.log('question: ', questions);
+  const handleSubmitQuestionForQuiz = async () => {
+    //todo
+
+    //validate Data
+    console.log('question: ', questions, selectedQuiz);
+
+    //submit Question
+    await Promise.all(
+      questions.map(async (question) => {
+        const q = await postCreateNewQuestionForQuiz(
+          +selectedQuiz.value,
+          question.description,
+          question.imageFile
+        );
+
+        //submit Answer
+        await Promise.all(
+          question.answers.map(async (answer) => {
+            await postCreateNewAnswerForQuestion(
+              answer.description,
+              answer.isCorrect,
+              q.DT.id
+            );
+          })
+        );
+        // console.log('q: ', q)
+      })
+    );
   };
 
   const handlePreviewImage = (questionId) => {
@@ -145,12 +182,27 @@ const Questions = () => {
     }
   };
 
-  const [isPreviewImage, setIsPreViewImage] = useState(false);
+  const [listQuiz, setListQuiz] = useState([]);
 
-  const [dataImagePreview, setDataImagePreview] = useState({
-    title: '',
-    url: '',
-  });
+  const [selectedQuiz, setSelectedQuiz] = useState({});
+
+  useEffect(() => {
+    fetchQuiz();
+  }, []);
+
+  const fetchQuiz = async () => {
+    let res = await getAllQuizForAdmin();
+    if (res && res.EC === 0) {
+      let newQuiz = res.DT.map((item) => {
+        return {
+          value: item.id,
+          label: `${item.id} - ${item.description}`,
+        };
+      });
+      setListQuiz(newQuiz);
+    }
+  };
+  // console.log('listQuiz', listQuiz)
 
   return (
     <div className="question-container">
@@ -162,7 +214,7 @@ const Questions = () => {
           <Select
             defaultValue={selectedQuiz}
             onChange={setSelectedQuiz}
-            options={options}
+            options={listQuiz}
           />
         </div>
         <div className="mt-3 mb-2">Add Question:</div>
@@ -189,6 +241,7 @@ const Questions = () => {
                       />
                       <label>Question's {index + 1} Description</label>
                     </div>
+
                     <div className="group-upload ">
                       <label htmlFor={`${question.id}`}>
                         <RiImageAddFill className="label-upload" />
@@ -202,14 +255,17 @@ const Questions = () => {
                         hidden
                       />
                       <span>
-                        {question.imageName ? 
-                            <span style={{ cursor: 'pointer' }}
-                              onClick={() => handlePreviewImage(question.id)}>
-                              {question.imageName}
-                            </span>
-                          : 
-                            'NOT file is upload!!!'
-                        }</span>
+                        {question.imageName ? (
+                          <span
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handlePreviewImage(question.id)}
+                          >
+                            {question.imageName}
+                          </span>
+                        ) : (
+                          'NOT file is upload!!!'
+                        )}
+                      </span>
                     </div>
 
                     <div className="btn-add">
@@ -306,9 +362,7 @@ const Questions = () => {
               image={dataImagePreview.url}
               title={dataImagePreview.title}
               onClose={() => setIsPreViewImage(false)}
-            >
-
-            </Lightbox>
+            ></Lightbox>
           )}
         </div>
       </div>
