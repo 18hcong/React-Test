@@ -1,4 +1,4 @@
-import './Questions.scss';
+import './QuizQA.scss';
 import Select from 'react-select';
 import _, { create } from 'lodash';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ import {
 } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
 
-const Questions = () => {
+const QuizQA = () => {
   const initQuestions = [
     {
       id: uuidv4(),
@@ -223,13 +223,13 @@ const Questions = () => {
     }
   };
 
-  const [listQuiz, setListQuiz] = useState([]);
+    const [listQuiz, setListQuiz] = useState([]);
 
-  const [selectedQuiz, setSelectedQuiz] = useState({});
+    const [selectedQuiz, setSelectedQuiz] = useState({});
 
-  useEffect(() => {
-    fetchQuiz();
-  }, []);
+    useEffect(() => {
+      fetchQuiz();
+    }, []);
 
   const fetchQuiz = async () => {
     let res = await getAllQuizForAdmin();
@@ -247,8 +247,6 @@ const Questions = () => {
 
   return (
     <div className="question-container">
-      <div className="question-title">Management Question</div>
-      <hr />
       <div className="add-new-question">
         <div className="col-6 form-group">
           <label className="mb-2">Select Quiz: </label>
@@ -410,4 +408,4 @@ const Questions = () => {
     </div>
   );
 };
-export default Questions;
+export default QuizQA;

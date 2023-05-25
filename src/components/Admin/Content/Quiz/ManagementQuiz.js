@@ -5,6 +5,8 @@ import { postCreateNewQuiz } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
 import TableQuiz from './TableQuiz';
 import { Accordion } from 'react-bootstrap';
+import QuizQA from './QuizQA';
+import AssignQuiz from './AssignQuiz';
 
 const options = [
   { value: 'EASY', label: 'Easy' },
@@ -42,7 +44,7 @@ const ManagementQuiz = (props) => {
   };
   return (
     <div className="quiz-container">
-      <Accordion>
+      <Accordion defaultActiveKey="0">
         <Accordion.Item eventKey="0">
           <Accordion.Header>Cong Hoang - whoIsHoang</Accordion.Header>
           <Accordion.Body>
@@ -98,12 +100,26 @@ const ManagementQuiz = (props) => {
                 </div>
               </fieldset>
             </div>
+            <div className="list-details">
+              <TableQuiz />
+            </div>
+          </Accordion.Body>
+        </Accordion.Item>
+
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>UPDATE Question/Answer Quizzes</Accordion.Header>
+          <Accordion.Body>
+            <QuizQA/>
+          </Accordion.Body>
+        </Accordion.Item>
+
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>Assign to Users</Accordion.Header>
+          <Accordion.Body>
+            <AssignQuiz/>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      <div className="list-details">
-        <TableQuiz />
-      </div>
     </div>
   );
 };
