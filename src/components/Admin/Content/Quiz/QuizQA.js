@@ -12,9 +12,9 @@ import {
   getAllQuizForAdmin,
   postCreateNewQuestionForQuiz,
   postCreateNewAnswerForQuestion,
+  getQuizWithQA,
 } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
-
 const QuizQA = () => {
   const initQuestions = [
     {
@@ -33,21 +33,66 @@ const QuizQA = () => {
       ],
     },
   ];
-  // const options = [
-  //   { value: 'chocolate', label: 'Chocolate' },
-  //   { value: 'strawberry', label: 'Strawberry' },
-  //   { value: 'vanilla', label: 'Vanilla' },
-  // ];
-
   const [questions, setQuestions] = useState(initQuestions);
-  // console.log('check questions:', questions);
   const [isPreviewImage, setIsPreViewImage] = useState(false);
-
+  const [listQuiz, setListQuiz] = useState([]);
+  const [selectedQuiz, setSelectedQuiz] = useState({});
   const [dataImagePreview, setDataImagePreview] = useState({
     title: '',
     url: '',
   });
 
+  useEffect(() => {
+    fetchQuiz();
+  }, []);
+  useEffect(() => {
+    if (selectedQuiz && selectedQuiz.value) {
+      fetchQuizWithQA();
+    }
+  }, [selectedQuiz]);
+
+  // return a promise that resolves with a File instance
+  function urltoFile(url, filename, mimeType) {
+    return fetch(url)
+      .then(function (res) {
+        return res.arrayBuffer();
+      })
+      .then(function (buf) {
+        return new File([buf], filename, { type: mimeType });
+      });
+  }
+  const fetchQuizWithQA = async () => {
+    let rs = await getQuizWithQA(selectedQuiz.value);
+    if (rs && rs.EC === 0) {
+      // convert base64 to file object
+      let newQA = [];
+      for (let i = 0; i < rs.DT.qa.length; i++) {
+        let q = rs.DT.qa[i];
+        if (q.imageFile) {
+          q.imageName = `Question-${q.id}`;
+          q.imageFile = await urltoFile(
+            `data:image/png;base64,${q.imageFile}`,
+            `Question-${q.id}`,
+            'image/png'
+          );
+        }
+        newQA.push(q);
+      }
+      setQuestions(newQA);
+    }
+  };
+  const fetchQuiz = async () => {
+    let res = await getAllQuizForAdmin();
+    if (res && res.EC === 0) {
+      let newQuiz = res.DT.map((item) => {
+        return {
+          value: item.id,
+          label: `${item.id} - ${item.description}`,
+        };
+      });
+      setListQuiz(newQuiz);
+    }
+  };
   const handleAddRemoveQuestion = (type, id) => {
     if (type === 'ADD') {
       const newQuestion = {
@@ -71,7 +116,6 @@ const QuizQA = () => {
       setQuestions(questionsClone);
     }
   };
-
   const handleAddRemoveAnswers = (type, questionId, answerId) => {
     let questionsClone = _.cloneDeep(questions);
     if (type === 'ADD') {
@@ -88,12 +132,11 @@ const QuizQA = () => {
     if (type === 'REMOVE') {
       let index = questionsClone.findIndex((item) => item.id === questionId);
       questionsClone[index].answers = questionsClone[index].answers.filter(
-        (item) => item.id != answerId
+        (item) => item.id !== answerId
       );
       setQuestions(questionsClone);
     }
   };
-
   const handleOnChange = (type, questionId, value) => {
     if (type === 'QUESTION') {
       let questionsClone = _.cloneDeep(questions);
@@ -104,7 +147,6 @@ const QuizQA = () => {
       }
     }
   };
-
   const handleOnChangeFileQuestion = (questionId, event) => {
     let questionsClone = _.cloneDeep(questions);
     let index = questionsClone.findIndex((item) => item.id === questionId);
@@ -120,7 +162,6 @@ const QuizQA = () => {
       setQuestions(questionsClone);
     }
   };
-
   const handleAnswerQuestion = (type, answerId, questionId, value) => {
     let questionsClone = _.cloneDeep(questions);
     let index = questionsClone.findIndex((item) => item.id === questionId);
@@ -143,7 +184,6 @@ const QuizQA = () => {
       setQuestions(questionsClone);
     }
   };
-
   const handleSubmitQuestionForQuiz = async () => {
     //todo
     if (_.isEmpty(selectedQuiz)) {
@@ -152,7 +192,6 @@ const QuizQA = () => {
     }
 
     //validate answers
-
     let isValidateAnswers = true;
     let indexQ = 0,
       indexA = 0;
@@ -173,7 +212,6 @@ const QuizQA = () => {
     }
 
     //validate questions
-
     let isValidateQuestions = true;
     let indexQ1 = 0;
     for (let i = 0; i < questions.length; i++) {
@@ -189,7 +227,6 @@ const QuizQA = () => {
     }
 
     //validate Data
-
     for (const question of questions) {
       const q = await postCreateNewQuestionForQuiz(
         +selectedQuiz.value,
@@ -210,7 +247,6 @@ const QuizQA = () => {
     toast.success(`Created Question & Answer successfully!`);
     setQuestions(initQuestions);
   };
-
   const handlePreviewImage = (questionId) => {
     let questionsClone = _.cloneDeep(questions);
     let index = questionsClone.findIndex((item) => item.id === questionId);
@@ -222,28 +258,6 @@ const QuizQA = () => {
       setIsPreViewImage(true);
     }
   };
-
-    const [listQuiz, setListQuiz] = useState([]);
-
-    const [selectedQuiz, setSelectedQuiz] = useState({});
-
-    useEffect(() => {
-      fetchQuiz();
-    }, []);
-
-  const fetchQuiz = async () => {
-    let res = await getAllQuizForAdmin();
-    if (res && res.EC === 0) {
-      let newQuiz = res.DT.map((item) => {
-        return {
-          value: item.id,
-          label: `${item.id} - ${item.description}`,
-        };
-      });
-      setListQuiz(newQuiz);
-    }
-  };
-  // console.log('listQuiz', listQuiz)
 
   return (
     <div className="question-container">
@@ -285,7 +299,7 @@ const QuizQA = () => {
                       <label htmlFor={`${question.id}`}>
                         <RiImageAddFill className="label-upload" />
                       </label>
-                      <input 
+                      <input
                         id={`${question.id}`}
                         onChange={(event) =>
                           handleOnChangeFileQuestion(question.id, event)

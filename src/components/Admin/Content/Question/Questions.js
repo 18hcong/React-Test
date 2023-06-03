@@ -88,7 +88,7 @@ const Questions = () => {
     if (type === 'REMOVE') {
       let index = questionsClone.findIndex((item) => item.id === questionId);
       questionsClone[index].answers = questionsClone[index].answers.filter(
-        (item) => item.id != answerId
+        (item) => item.id !== answerId
       );
       setQuestions(questionsClone);
     }
