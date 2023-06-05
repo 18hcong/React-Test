@@ -32,15 +32,14 @@ const AssignQuiz = (props) => {
     }
   };
 
-  const handleAssignQuiz = async () => {
-    let rs = await postAssignQuiz(selectedQuiz.value, selectedUser.value)
-    if(rs && rs.EC === 0){
-      toast.success(rs.EM)
-      
-    }else{
-      toast.error(rs.EM)
+  const handleAssign = async () => {
+    let rs = await postAssignQuiz(selectedQuiz.value, selectedUser.value);
+    if (rs && rs.EC === 0) {
+      toast.success(rs.EM);
+    } else {
+      toast.error(rs.EM);
     }
-  }
+  };
 
   const fetchUser = async () => {
     let res = await getAllUsers();
@@ -75,11 +74,12 @@ const AssignQuiz = (props) => {
         />
       </div>
       <div>
-        <button 
-        className="btn btn-primary mt-3"
-        onClick={() => handleAssignQuiz()}
+        <button
+          className="btn btn-primary mt-3"
+          onClick={() => handleAssign()}
         >
-          Assign</button>
+          Assign
+        </button>
       </div>
     </div>
   );
