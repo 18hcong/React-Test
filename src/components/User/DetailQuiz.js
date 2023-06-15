@@ -8,6 +8,7 @@ import ModalResult from './ModalResult';
 import { SidebarFooter } from 'react-pro-sidebar';
 import { FaMailchimp } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import RightContent from './Content/RightConten';
 
 const DetailQuiz = (props) => {
   const navigate = useNavigate();
@@ -165,7 +166,10 @@ const DetailQuiz = (props) => {
           </SidebarFooter>
         </div>
       </div>
-      <div className="right-content">countdown</div>
+      <div className="right-content">
+        <RightContent
+        dataQuiz={dataQuiz}/>
+      </div>
       <ModalResult
         show={isShowModalResult}
         setShow={setIsShowModalResult}
