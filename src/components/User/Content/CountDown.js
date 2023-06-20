@@ -26,7 +26,7 @@ const CountDown = (props) => {
 			.filter((v, i) => v !== "00" || i > 0)
 			.join(":");
 	};
-	console.log(toHHMMSS(60));
+	// console.log(toHHMMSS(60));
 	return <div className="container-countdown">{toHHMMSS(count)}</div>;
 };
 

@@ -64,7 +64,12 @@
         cursor: pointer;
         &:hover{
           color:crimson ;
-          background-color: bisque;
+        }
+        &.selected{
+          background-color: #c6c6c6;
+        }
+        &.clicked{
+          background-color: #c6c6c6;
         }
       }
     }

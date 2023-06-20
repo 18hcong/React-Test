@@ -7,7 +7,7 @@ const ModalResult = (props) => {
 
   const handleClose = () => setShow(false);
 
-  console.log(`check data: `, dataModalResult);
+  // console.log(`check data: `, dataModalResult);
   return (
     <>
       <Modal show={show} onHide={handleClose} backdrop="static">

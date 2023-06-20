@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { getDataQuiz, postSubmitQuiz } from '../../services/apiServices';
 import _ from 'lodash';
-import './DetailQuiz.scss';
-import Question from './Question';
-import ModalResult from './ModalResult';
-import { SidebarFooter } from 'react-pro-sidebar';
+import { useEffect, useState } from 'react';
 import { FaMailchimp } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { SidebarFooter } from 'react-pro-sidebar';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { getDataQuiz, postSubmitQuiz } from '../../services/apiServices';
 import RightContent from './Content/RightConten';
+import './DetailQuiz.scss';
+import ModalResult from './ModalResult';
+import Question from './Question';
 
 const DetailQuiz = (props) => {
   const navigate = useNavigate();
@@ -81,7 +80,7 @@ const DetailQuiz = (props) => {
 
   const handleFinishQuiz = async () => {
     if (getDataQuiz && dataQuiz.length > 0) {
-      console.log('finish: ', dataQuiz);
+      // console.log('finish: ', dataQuiz);
       let payload = {
         quizId: +quizId,
         answers: [],
@@ -106,7 +105,7 @@ const DetailQuiz = (props) => {
         payload.answers = answer;
         //submit api
         let res = await postSubmitQuiz(payload);
-        console.log(`check res:`, res);
+        // console.log(`check res:`, res);
         if (res && res.EC === 0) {
           setDataModalResult({
             countCorrect: res.DT.countCorrect,
@@ -170,6 +169,7 @@ const DetailQuiz = (props) => {
         <RightContent
         dataQuiz={dataQuiz}
         handleFinishQuiz={handleFinishQuiz}
+        setIndex={setIndex}
         />
       </div>
       <ModalResult
